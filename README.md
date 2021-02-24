@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://www.apache.org/licenses/LICENSE-2.0" alt="GitHub tag">
+    <a href="https://www.apache.org/licenses/LICENSE-2.0" alt="license">
         <img src="https://img.shields.io/github/license/tomarv2/terraform-azure-role-assignment" /></a>
     <a href="https://github.com/tomarv2/terraform-azure-role-assignment/tags" alt="GitHub tag">
         <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-azure-role-assignment" /></a>
