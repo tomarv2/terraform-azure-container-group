@@ -79,7 +79,7 @@ tf -cloud aws destroy -var-file <path to .tfvars file> -var "subscription_id=<>"
 -var "client_id=<>" -var "client_secret=<>" -var "tenant_id=<>"
 ```
 
-Please refer to example directory [link](example/README.md) for references.
+Please refer to example directory [link](example) for references.
 
 
 ## Inputs
