@@ -13,8 +13,7 @@
         <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
 </p>
 
-# Azure Container Instance (ACI) module
-Terraform to create ACI
+# Terraform module to Azure Container Instance (ACI)
 
 ## Versions
 
@@ -63,23 +62,63 @@ example/base
 
 - Run and verify the output before deploying:
 ```
-tf -cloud aws plan -var-file <path to .tfvars file> -var "subscription_id=<>" \
+tf -cloud azure plan -var-file <path to .tfvars file> -var "subscription_id=<>" \
 -var "client_id=<>" -var "client_secret=<>" -var "tenant_id=<>"
 ```
 
 - Run below to deploy:
 ```
-tf -cloud aws apply -var-file <path to .tfvars file> -var "subscription_id=<>" \
+tf -cloud azure apply -var-file <path to .tfvars file> -var "subscription_id=<>" \
 -var "client_id=<>" -var "client_secret=<>" -var "tenant_id=<>"
 ```
 
 - Run below to destroy:
 ```
-tf -cloud aws destroy -var-file <path to .tfvars file> -var "subscription_id=<>" \
+tf -cloud azure destroy -var-file <path to .tfvars file> -var "subscription_id=<>" \
 -var "client_id=<>" -var "client_secret=<>" -var "tenant_id=<>"
 ```
 
-Please refer to example directory [link](example) for references.
+> ❗️ **Important** - Two variables are required for using `tf` package:
+>
+> - teamid
+> - prjid
+>
+> These variables are required to set backend path in the remote storage.
+> Variables can be defined using:
+>
+> - Using `inline variables` e.g.: `-var='teamid=demo-team' -var='prjid=demo-project'`
+> - Inside `.tfvars` file e.g.: `-var-file=<tfvars file location> `
+>
+> For more information refer to [Terraform documentation](https://www.terraform.io/docs/language/values/variables.html)
+
+##### ACI with MSI and Resource Group
+
+```
+module "aci" {
+  source = "../"
+
+  email             = "demo@demo.com"
+  client_id         = var.client_id
+  client_secret     = var.client_secret
+  subscription_id   = var.subscription_id
+  tenant_id         = var.tenant_id
+  add_msi           = true
+  add_resourcegroup = true
+  rg_name           = "demo-rg"
+  docker_image      = "nginx"
+  container_port    = "80"
+  scopes            = "scopes"
+  env_variables = {
+    DEMO_ENV_VAR = "1"
+  }
+  # ---------------------------------------------
+  # Note: Do not change teamid and prjid once set.
+  teamid = var.teamid
+  prjid  = var.prjid
+}
+```
+
+Please refer to examples directory [link](examples) for references.
 
 
 ## Inputs

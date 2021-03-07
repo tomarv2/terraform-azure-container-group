@@ -65,7 +65,7 @@ variable "docker_image" {
 //}
 
 variable "initial_delay_seconds" {
-    default = "30"
+  default = "30"
 }
 
 variable "period_seconds" {
@@ -73,30 +73,30 @@ variable "period_seconds" {
 }
 
 variable "failure_threshold" {
-    default = "5"
+  default = "5"
 }
 
 variable "success_threshold" {
-    default = "3"
+  default = "3"
 }
 
 variable "timeout_seconds" {
-    default = "30"
+  default = "30"
 }
 
 # VOLUME
 variable "mount_path" {
-    default = "/mnt"
+  default = "/mnt"
 }
 
 variable "add_msi" {
   description = "Do you want to add MSI(Note: this is a feature flag)"
-  default = false
+  default     = false
 }
 
 variable "add_resourcegroup" {
   description = "Do you want to add a new Resource Group(Note: this is a feature flag)"
-  default = false
+  default     = false
 }
 
 variable "subscription_id" {}
@@ -121,7 +121,7 @@ variable "aci_depends_on" {
 }
 
 variable "scopes" {
-//  type        = list(string)
-//  default     = []
+  //  type        = list(string)
+  //  default     = []
   description = "A list of scopes the role assignment applies to."
 }
