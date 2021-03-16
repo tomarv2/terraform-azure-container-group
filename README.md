@@ -97,7 +97,6 @@ tf -cloud azure destroy -var-file <path to .tfvars file> -var "subscription_id=<
 module "aci" {
   source = "../"
 
-  email             = "demo@demo.com"
   client_id         = var.client_id
   client_secret     = var.client_secret
   subscription_id   = var.subscription_id
@@ -135,7 +134,6 @@ Please refer to examples directory [link](examples) for references.
 | container\_protocol | n/a | `string` | `"TCP"` | no |
 | cpu\_allocation | n/a | `string` | `"0.5"` | no |
 | docker\_image | n/a | `any` | n/a | yes |
-| email | email address to be used for tagging (suggestion: use group email address) | `any` | n/a | yes |
 | env\_variables | n/a | `any` | n/a | yes |
 | failure\_threshold | n/a | `string` | `"5"` | no |
 | identity\_type | n/a | `string` | `"UserAssigned"` | no |
