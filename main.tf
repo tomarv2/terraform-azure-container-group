@@ -11,7 +11,6 @@ module "resourcegroup" {
   add_resourcegroup = var.add_resourcegroup # FEATURE FLAG
 
   rg_name         = local.rgname_create
-  email           = var.email
   teamid          = var.teamid
   prjid           = var.prjid
   client_id       = var.client_id
@@ -26,7 +25,6 @@ module "msi" {
 
   add_msi = var.add_msi # FEATURE FLAG
 
-  email           = var.email
   teamid          = var.teamid
   prjid           = var.prjid
   client_id       = var.client_id
@@ -42,8 +40,6 @@ module "msi" {
 module "role_assignment" {
   source = "git::git@github.com:tomarv2/terraform-azure-role-assignment.git"
 
-
-  email           = var.email
   teamid          = var.teamid
   prjid           = var.prjid
   client_id       = var.client_id
@@ -57,7 +53,6 @@ module "role_assignment" {
 locals {
   shared_tags = map(
     "name", "${var.teamid}-${var.prjid}",
-    "owner", var.email,
     "team", var.teamid,
     "project", var.prjid
   )
