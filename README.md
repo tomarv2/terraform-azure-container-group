@@ -1,4 +1,6 @@
 <p align="center">
+    <a href="https://github.com/tomarv2/terraform-azure-container-instance/actions/workflows/security_scans.yml" alt="Security Scans">
+        <img src="https://github.com/tomarv2/terraform-azure-container-instance/actions/workflows/security_scans.yml/badge.svg?branch=main" /></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0" alt="license">
         <img src="https://img.shields.io/github/license/tomarv2/terraform-azure-role-assignment" /></a>
     <a href="https://github.com/tomarv2/terraform-azure-role-assignment/tags" alt="GitHub tag">
@@ -13,17 +15,15 @@
         <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
 </p>
 
-# Terraform module to Azure Container Instance (ACI)
+# Terraform module to create Azure Container Instance (ACI)
 
 ## Versions
 
 - Module tested for Terraform 0.14.
 - Azure provider version [2.48.0](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
 - `main` branch: Provider versions not pinned to keep up with Terraform releases
-- `tags` releases: Tags are pinned with versions (use latest 
-        <a href="https://github.com/tomarv2/terraform-azure-role-assignment/tags" alt="GitHub tag">
-        <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-azure-role-assignment" /></a>
-  in your releases)
+- `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-azure-role-assignment/tags" alt="GitHub tag">
+        <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-azure-role-assignment" /></a> in your releases)
 
 **NOTE:** 
 
@@ -50,31 +50,23 @@ export TF_AZURE_CONTAINER=tfstate # Output of remote_state.sh
 export ARM_ACCESS_KEY=xxxxxxxxxx # Output of remote_state.sh
 ```  
 
-- Update:
-```
-example/custom/sample.tfvars
-```
-
-- Change to: 
-```
-example/base
-``` 
+- Updated `examples` directory to required values.
 
 - Run and verify the output before deploying:
 ```
-tf -cloud azure plan -var-file <path to .tfvars file> -var "subscription_id=<>" \
+tf -cloud azure plan -var='teamid=foo' -var='prjid=bar' -var "subscription_id=<>" \
 -var "client_id=<>" -var "client_secret=<>" -var "tenant_id=<>"
 ```
 
 - Run below to deploy:
 ```
-tf -cloud azure apply -var-file <path to .tfvars file> -var "subscription_id=<>" \
+tf -cloud azure apply --var='teamid=foo' -var='prjid=bar' -var "subscription_id=<>" \
 -var "client_id=<>" -var "client_secret=<>" -var "tenant_id=<>"
 ```
 
 - Run below to destroy:
 ```
-tf -cloud azure destroy -var-file <path to .tfvars file> -var "subscription_id=<>" \
+tf -cloud azure destroy -var='teamid=foo' -var='prjid=bar' -var "subscription_id=<>" \
 -var "client_id=<>" -var "client_secret=<>" -var "tenant_id=<>"
 ```
 
