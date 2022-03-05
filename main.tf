@@ -10,14 +10,11 @@ module "resourcegroup" {
 
   add_resourcegroup = var.add_resourcegroup # FEATURE FLAG
 
-  rg_name         = local.rgname_create
-  teamid          = var.teamid
-  prjid           = var.prjid
-  client_id       = var.client_id
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  client_secret   = var.client_secret
-  rg_location     = var.rg_location
+  rg_name = local.rgname_create
+  teamid  = var.teamid
+  prjid   = var.prjid
+
+  rg_location = var.rg_location
 }
 
 module "msi" {
@@ -25,14 +22,11 @@ module "msi" {
 
   add_msi = var.add_msi # FEATURE FLAG
 
-  teamid          = var.teamid
-  prjid           = var.prjid
-  client_id       = var.client_id
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  client_secret   = var.client_secret
-  rg_name         = local.rgname
-  msi_location    = var.rg_location
+  teamid = var.teamid
+  prjid  = var.prjid
+
+  rg_name      = local.rgname
+  msi_location = var.rg_location
 
   msi_depends_on = local.rgname
 }
@@ -40,14 +34,11 @@ module "msi" {
 module "role_assignment" {
   source = "git::git@github.com:tomarv2/terraform-azure-role-assignment.git"
 
-  teamid          = var.teamid
-  prjid           = var.prjid
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  principal_id    = module.msi.msi_principal_id
-  scopes          = var.scopes
+  teamid = var.teamid
+  prjid  = var.prjid
+
+  principal_id = module.msi.msi_principal_id
+  scopes       = var.scopes
 }
 
 locals {

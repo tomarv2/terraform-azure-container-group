@@ -29,4 +29,3 @@ resource "azurerm_container_group" "containergroup" {
 
   tags = merge(local.shared_tags)
 }
-
