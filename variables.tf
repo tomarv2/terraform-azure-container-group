@@ -1,123 +1,85 @@
 variable "teamid" {
-  description = "(Required) Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply'"
+  description = "Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply'"
+  type        = string
 }
 
 variable "prjid" {
-  description = "(Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply'"
+  description = "Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply'"
+  type        = string
 }
 
-variable "rg_name" {
-}
-
-variable "rg_location" {
-  default = "eastus"
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
 }
 
 variable "env_variables" {
+  description = "Environment variables"
+  type        = map(any)
+  default     = {}
 }
 
 variable "cmd" {
-  default = []
+  description = "cmd"
+  type        = list(any)
+  default     = []
 }
 
 variable "num_of_containers" {
-  default = 1
+  description = "Number of containers"
+  type        = number
+  default     = 1
 }
 
 variable "restart_policy" {
-  default = "OnFailure"
+  description = "Restart policy"
+  default     = "OnFailure"
+  type        = string
 }
 
 variable "ip_address_type" {
-  default = "Public"
+  description = "IP address type"
+  default     = "Public"
+  type        = string
 }
 
 variable "os_type" {
-  default = "Linux"
+  description = "OS type"
+  default     = "Linux"
+  type        = string
 }
 
 variable "cpu_allocation" {
-  default = "0.5"
+  description = "CPU allocation"
+  default     = "0.5"
+  type        = string
 }
 
 variable "mem_allocation" {
-  default = "1.0"
+  description = "Memory allocation"
+  default     = "1.0"
+  type        = string
 }
 
 variable "container_port" {
-  default = "443"
+  description = "Container port"
+  default     = "443"
+  type        = string
 }
 
 variable "container_protocol" {
-  default = "TCP"
+  description = "Container protocol"
+  default     = "TCP"
+  type        = string
 }
 
 variable "docker_image" {
+  description = "Docker image"
+  type        = string
 }
 
-//# READINESS & LIVENESS PROBE
-//variable "probe_cmd_exec" {
-//    default = ["cat", "/dev/null"]
-//}
-
-variable "initial_delay_seconds" {
-  default = "30"
-}
-
-variable "period_seconds" {
-  default = "30"
-}
-
-variable "failure_threshold" {
-  default = "5"
-}
-
-variable "success_threshold" {
-  default = "3"
-}
-
-variable "timeout_seconds" {
-  default = "30"
-}
-
-# VOLUME
-variable "mount_path" {
-  default = "/mnt"
-}
-
-variable "add_msi" {
-  description = "Do you want to add MSI(Note: this is a feature flag)"
-  default     = false
-}
-
-variable "add_resourcegroup" {
-  description = "Do you want to add a new Resource Group(Note: this is a feature flag)"
-  default     = false
-}
-
-variable "subscription_id" {}
-
-variable "client_id" {}
-
-variable "client_secret" {}
-
-variable "tenant_id" {}
-
-variable "identity_type" {
-  default = "UserAssigned"
-}
-
-variable "msi_name" {
-  default = null
-}
-
-
-variable "aci_depends_on" {
-  default = null
-}
-
-variable "scopes" {
-  //  type        = list(string)
-  //  default     = []
-  description = "A list of scopes the role assignment applies to."
+variable "location" {
+  description = " The location/region where the resource is created. Changing this forces a new resource to be created"
+  default     = "westus2"
+  type        = string
 }

@@ -1,59 +1,33 @@
-locals {
-  rgname        = var.add_resourcegroup != true ? var.rg_name : module.resourcegroup.resourcegroup_name[0]
-  rgname_create = coalesce(var.rg_name, "${var.teamid}-${var.prjid}")
+resource "azurerm_container_group" "container_group" {
+  name = "${var.teamid}-${var.prjid}"
 
-  msiname = var.add_msi == false ? var.msi_name : module.msi.msi_id[0]
-}
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  count               = var.num_of_containers
+  ip_address_type     = var.ip_address_type
+  dns_name_label      = "${var.teamid}-${var.prjid}"
+  os_type             = var.os_type
+  restart_policy      = var.restart_policy
 
-module "resourcegroup" {
-  source = "git::git@github.com:tomarv2/terraform-azure-resource-group.git"
+  container {
+    name                  = "${var.teamid}-${var.prjid}-${count.index}"
+    image                 = var.docker_image
+    cpu                   = var.cpu_allocation
+    memory                = var.mem_allocation
+    environment_variables = var.env_variables
+    commands              = var.cmd
+    ports {
+      port     = var.container_port
+      protocol = var.container_protocol
+    }
+  }
 
-  add_resourcegroup = var.add_resourcegroup # FEATURE FLAG
-
-  rg_name         = local.rgname_create
-  teamid          = var.teamid
-  prjid           = var.prjid
-  client_id       = var.client_id
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  client_secret   = var.client_secret
-  rg_location     = var.rg_location
-}
-
-module "msi" {
-  source = "git::git@github.com:tomarv2/terraform-azure-msi.git"
-
-  add_msi = var.add_msi # FEATURE FLAG
-
-  teamid          = var.teamid
-  prjid           = var.prjid
-  client_id       = var.client_id
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  client_secret   = var.client_secret
-  rg_name         = local.rgname
-  msi_location    = var.rg_location
-
-  msi_depends_on = local.rgname
-}
-
-module "role_assignment" {
-  source = "git::git@github.com:tomarv2/terraform-azure-role-assignment.git"
-
-  teamid          = var.teamid
-  prjid           = var.prjid
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  principal_id    = module.msi.msi_principal_id
-  scopes          = var.scopes
-}
-
-locals {
-  shared_tags = map(
-    "name", "${var.teamid}-${var.prjid}",
-    "team", var.teamid,
-    "project", var.prjid
-  )
+  /*
+  Optional block: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_group
+  identity {
+    type         = var.identity_type
+    identity_ids = [var.msi_name]
+  }
+  */
+  tags = merge(local.shared_tags)
 }
