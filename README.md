@@ -113,6 +113,7 @@ module "aci" {
 
 Please refer to examples directory [link](examples) for references.
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -124,7 +125,7 @@ Please refer to examples directory [link](examples) for references.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 2.48.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 2.98 |
 
 ## Modules
 
@@ -163,3 +164,4 @@ No modules.
 | <a name="output_container_group_fqdn"></a> [container\_group\_fqdn](#output\_container\_group\_fqdn) | The FQDN of the created container group |
 | <a name="output_container_group_id"></a> [container\_group\_id](#output\_container\_group\_id) | The ID of the created container group |
 | <a name="output_container_group_ip_address"></a> [container\_group\_ip\_address](#output\_container\_group\_ip\_address) | The IP address of the created container group |
+<!-- END_TF_DOCS -->
