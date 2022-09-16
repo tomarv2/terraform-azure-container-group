@@ -8,21 +8,22 @@ variable "prjid" {
   type        = string
 }
 
-variable "resource_group_name" {
+variable "name" {
+  description = "Azure container group name"
+  type        = string
+  default     = null
+}
+
+variable "resource_group" {
   description = "Name of the resource group"
   type        = string
+  default     = null
 }
 
 variable "env_variables" {
   description = "Environment variables"
   type        = map(any)
   default     = {}
-}
-
-variable "cmd" {
-  description = "cmd"
-  type        = list(any)
-  default     = []
 }
 
 variable "num_of_containers" {
@@ -73,13 +74,67 @@ variable "container_protocol" {
   type        = string
 }
 
-variable "docker_image" {
-  description = "Docker image"
-  type        = string
-}
-
 variable "location" {
   description = " The location/region where the resource is created. Changing this forces a new resource to be created"
   default     = "westus2"
   type        = string
+}
+
+
+variable "containers_config" {
+  description = <<EOD
+Containers configurations, defined by this type:
+```
+map(
+  container-name (string) : object({
+    image                        = string
+    cpu                          = number
+    memory                       = number
+    environment_variables        = optional(map)
+    secure_environment_variables = optional(map)
+    commands                     = optional(list)
+    ports = list(object({
+      port     = number
+      protocol = string
+    }))
+  })
+)
+```
+EOD
+  type        = map(any)
+}
+
+variable "resource_group_settings" {
+  default = {}
+}
+
+variable "extra_tags" {
+  description = "Additional tags to associate"
+  type        = map(string)
+  default     = {}
+}
+
+variable "dns_name_label" {
+  description = "The DNS label/name for the container group's IP. Changing this forces a new resource to be created."
+  default     = null
+  type        = string
+}
+
+variable "identity" {
+  description = "MSI information"
+  type        = map(any)
+}
+
+variable "identity_type" {
+  type    = string
+  default = "UserAssigned"
+}
+
+variable "msi_config" {
+  default = {}
+}
+
+variable "exposed_port" {
+  default = []
+  type = list(map(any))
 }
