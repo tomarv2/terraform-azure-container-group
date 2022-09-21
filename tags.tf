@@ -3,7 +3,7 @@ locals {
     {
       "Name"    = "${var.teamid}-${var.prjid}",
       "Team"    = var.teamid,
-      "Project" = var.prjid
+      "Project" = var.prjid,
     }
   )
 }
