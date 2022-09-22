@@ -17,7 +17,7 @@ resource "azurerm_container_group" "container_group" {
       image                        = container.value.image
       cpu                          = container.value.cpu
       memory                       = container.value.memory
-      environment_variables        = lookup(container.value, "environment_variables", null)
+      environment_variables        = lookup(container.value, "environment_variables", var.environment_variables)
       secure_environment_variables = lookup(container.value, "secure_environment_variables", null)
       commands                     = lookup(container.value, "commands", null)
 
@@ -42,5 +42,3 @@ resource "azurerm_container_group" "container_group" {
   }
   tags = merge(var.extra_tags, local.shared_tags)
 }
-
-

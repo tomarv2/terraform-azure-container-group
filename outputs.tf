@@ -1,14 +1,14 @@
-output "container_group_id" {
+output "id" {
   description = "The ID of the created container group"
-  value       = azurerm_container_group.container_group.*.id
+  value       = [for container in azurerm_container_group.container_group : container.id]
 }
 
-output "container_group_ip_address" {
+output "ip_address" {
   description = "The IP address of the created container group"
-  value       = azurerm_container_group.container_group.*.ip_address
+  value       = [for container in azurerm_container_group.container_group : container.id]
 }
 
-output "container_group_fqdn" {
+output "fqdn" {
   description = "The FQDN of the created container group"
-  value       = azurerm_container_group.container_group.*.fqdn
+  value       = [for container in azurerm_container_group.container_group : container.fqdn]
 }
