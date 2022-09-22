@@ -8,12 +8,6 @@ variable "prjid" {
   type        = string
 }
 
-variable "env_variables" {
-  description = "Environment variables"
-  type        = map(any)
-  default     = {}
-}
-
 variable "num_of_containers" {
   description = "Number of containers"
   type        = number
@@ -35,30 +29,6 @@ variable "ip_address_type" {
 variable "os_type" {
   description = "OS type"
   default     = "Linux"
-  type        = string
-}
-
-variable "cpu_allocation" {
-  description = "CPU allocation"
-  default     = "0.5"
-  type        = string
-}
-
-variable "mem_allocation" {
-  description = "Memory allocation"
-  default     = "1.0"
-  type        = string
-}
-
-variable "container_port" {
-  description = "Container port"
-  default     = "443"
-  type        = string
-}
-
-variable "container_protocol" {
-  description = "Container protocol"
-  default     = "TCP"
   type        = string
 }
 
@@ -93,37 +63,26 @@ EOD
   default = {}
 }
 
-variable "identity_type" {
-  default = "UserAssigned"
-}
-
-variable "msi_name" {
-  default = null
-}
-
-variable "msi_config" {
-  default = {}
-}
-
-variable "resource_group_config" {
-  default = {}
-}
-
 variable "extra_tags" {
   description = "Additional tags to associate"
   type        = map(string)
   default     = {}
 }
 
-variable "application_insights_config" {
-  default = {}
-}
-
 variable "identity" {
+  description = "Specifies the type of Managed Service Identity that should be configured on this Container Group. Possible values are SystemAssigned, UserAssigned, SystemAssigned, UserAssigned (to enable both)."
+  type = map(any)
   default = null
 }
 
 variable "exposed_port" {
+  description = "The port number the container will expose. Changing this forces a new resource to be created."
   default = []
   type = list(map(any))
+}
+
+variable "environment_variables"{
+  description = "A list of environment variables to be set on the container. Specified as a map of name/value pairs. Changing this forces a new resource to be created."
+  type = map(any)
+  default = null
 }

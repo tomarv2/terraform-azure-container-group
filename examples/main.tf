@@ -17,7 +17,7 @@ module "container_group" {
   resource_group    = "<resource_group_name>"
   containers_config = var.containers_config
   extra_tags        = var.extra_tags
-  identity          = var.identity != null ? var.identity : { join("", flatten(module.msi.*.id)) = { type = "UserAssigned" } }
+  identity          = var.identity != null ? var.identity : null
   exposed_port      = var.exposed_port
   teamid            = var.teamid
   prjid             = var.prjid
