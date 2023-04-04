@@ -9,8 +9,8 @@
         <img src="https://img.shields.io/github/commit-activity/m/tomarv2/terraform-azure-container-instance" /></a>
     <a href="https://stackoverflow.com/users/6679867/tomarv2" alt="Stack Exchange reputation">
         <img src="https://img.shields.io/stackexchange/stackoverflow/r/6679867"></a>
-    <a href="https://twitter.com/intent/follow?screen_name=varuntomar2019" alt="follow on Twitter">
-        <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
+    <a href="https://twitter.com/intent/follow?screen_name=tomar_v2" alt="follow on Twitter">
+        <img src="https://img.shields.io/twitter/follow/tomar_v2?style=social&logo=twitter"></a>
 </p>
 
 ## Terraform module for Azure Container Instance (ACI)
@@ -112,27 +112,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_containers_config"></a> [containers\_config](#input\_containers\_config) | Containers configurations, defined by this type:<pre>map(<br>  container-name (string) : object({<br>    image                        = string<br>    cpu                          = number<br>    memory                       = number<br>    environment_variables        = optional(map)<br>    secure_environment_variables = optional(map)<br>    commands                     = optional(list)<br>    ports = list(object({<br>      port     = number<br>      protocol = string<br>    }))<br>  })<br>)</pre> | `map(any)` | n/a | yes |
-| <a name="input_dns_name_label"></a> [dns\_name\_label](#input\_dns\_name\_label) | The DNS label/name for the container group's IP. Changing this forces a new resource to be created. | `string` | `null` | no |
-| <a name="input_environment_variables"></a> [environment\_variables](#input\_environment\_variables) | A list of environment variables to be set on the container. Specified as a map of name/value pairs. Changing this forces a new resource to be created. | `map(any)` | `null` | no |
-| <a name="input_exposed_port"></a> [exposed\_port](#input\_exposed\_port) | The port number the container will expose. Changing this forces a new resource to be created. | `list(map(any))` | `[]` | no |
+| <a name="input_config"></a> [config](#input\_config) | Container gorup configuration | `map(any)` | `{}` | no |
 | <a name="input_extra_tags"></a> [extra\_tags](#input\_extra\_tags) | Additional tags to associate | `map(string)` | `{}` | no |
-| <a name="input_identity"></a> [identity](#input\_identity) | Specifies the type of Managed Service Identity that should be configured on this Container Group. Possible values are SystemAssigned, UserAssigned, SystemAssigned, UserAssigned (to enable both). | `map(any)` | `null` | no |
-| <a name="input_ip_address_type"></a> [ip\_address\_type](#input\_ip\_address\_type) | IP address type | `string` | `"Public"` | no |
-| <a name="input_location"></a> [location](#input\_location) | The location/region where the resource is created. Changing this forces a new resource to be created | `string` | `"westus2"` | no |
-| <a name="input_name"></a> [name](#input\_name) | Azure container group name | `string` | `null` | no |
-| <a name="input_num_of_containers"></a> [num\_of\_containers](#input\_num\_of\_containers) | Number of containers | `number` | `1` | no |
-| <a name="input_os_type"></a> [os\_type](#input\_os\_type) | OS type | `string` | `"Linux"` | no |
-| <a name="input_prjid"></a> [prjid](#input\_prjid) | Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
-| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | Name of the resource group | `string` | `null` | no |
-| <a name="input_restart_policy"></a> [restart\_policy](#input\_restart\_policy) | Restart policy | `string` | `"OnFailure"` | no |
-| <a name="input_teamid"></a> [teamid](#input\_teamid) | Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_fqdn"></a> [fqdn](#output\_fqdn) | The FQDN of the created container group |
-| <a name="output_id"></a> [id](#output\_id) | The ID of the created container group |
-| <a name="output_ip_address"></a> [ip\_address](#output\_ip\_address) | The IP address of the created container group |
+| <a name="output_test"></a> [test](#output\_test) | n/a |
 <!-- END_TF_DOCS -->

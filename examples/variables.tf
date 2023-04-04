@@ -1,13 +1,3 @@
-variable "teamid" {
-  description = "Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply'"
-  type        = string
-}
-
-variable "prjid" {
-  description = "Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply'"
-  type        = string
-}
-
 variable "num_of_containers" {
   description = "Number of containers"
   type        = number
@@ -60,7 +50,7 @@ map(
 ```
 EOD
   type        = map(any)
-  default = {}
+  default     = {}
 }
 
 variable "extra_tags" {
@@ -71,18 +61,18 @@ variable "extra_tags" {
 
 variable "identity" {
   description = "Specifies the type of Managed Service Identity that should be configured on this Container Group. Possible values are SystemAssigned, UserAssigned, SystemAssigned, UserAssigned (to enable both)."
-  type = map(any)
-  default = null
+  type        = map(any)
+  default     = null
 }
 
 variable "exposed_port" {
   description = "The port number the container will expose. Changing this forces a new resource to be created."
-  default = []
-  type = list(map(any))
+  default     = []
+  type        = list(map(any))
 }
 
-variable "environment_variables"{
+variable "environment_variables" {
   description = "A list of environment variables to be set on the container. Specified as a map of name/value pairs. Changing this forces a new resource to be created."
-  type = map(any)
-  default = null
+  type        = map(any)
+  default     = null
 }
