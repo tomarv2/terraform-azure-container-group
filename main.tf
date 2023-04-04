@@ -1,25 +1,43 @@
+locals {
+  containers_config = flatten([
+    for container_group, config in var.config : [
+      for container, settings in config.containers_config : {
+        identity     = config.identity
+        name                         = container
+        image                        = settings.image
+        cpu                          = settings.cpu
+        memory                       = settings.memory
+        environment_variables        = try(settings.environment_variables, null)
+        secure_environment_variables = try(settings.secure_environment_variables, null)
+        commands                     = try(settings.commands, null)
+        ports                     = try(settings.ports, [])
+      }
+    ]
+  ])
+}
+
 resource "azurerm_container_group" "container_group" {
-  name                = var.name != null ? var.name : "${var.teamid}-${var.prjid}"
-  resource_group_name = var.resource_group
-  location            = var.location
-  count               = var.num_of_containers
-  ip_address_type     = var.ip_address_type
-  dns_name_label      = var.dns_name_label != null ? var.dns_name_label : "${var.teamid}-${var.prjid}"
-  os_type             = var.os_type
-  restart_policy      = var.restart_policy
-  exposed_port        = var.exposed_port
+  for_each = var.config
+  name                = each.key
+  resource_group_name = each.value.resource_group
+  location            = try(each.value.location, "westus2")
+  ip_address_type     = try(each.value.ip_address_type, "Public")
+  dns_name_label      = try(each.value.dns_name_label, each.key)
+  os_type             = try(each.value.os_type, "Linux")
+  restart_policy      = try(each.value.restart_policy, "OnFailure")
+  exposed_port        = try(each.value.exposed_port, [])
 
   dynamic "container" {
-    for_each = var.containers_config
+    for_each = local.containers_config
 
     content {
-      name                         = container.key
+      name                         = container.value.name
       image                        = container.value.image
       cpu                          = container.value.cpu
       memory                       = container.value.memory
-      environment_variables        = lookup(container.value, "environment_variables", var.environment_variables)
-      secure_environment_variables = lookup(container.value, "secure_environment_variables", null)
-      commands                     = lookup(container.value, "commands", null)
+      environment_variables        = container.value.environment_variables
+      secure_environment_variables = container.value.secure_environment_variables
+      commands                     = container.value.commands
 
       dynamic "ports" {
         for_each = container.value.ports
@@ -31,13 +49,12 @@ resource "azurerm_container_group" "container_group" {
       }
     }
   }
-
   dynamic "identity" {
-    for_each = var.identity
+    for_each = local.containers_config
 
     content {
-      identity_ids = [identity.key]
-      type         = coalesce(identity.value.type, "UserAssigned")
+      identity_ids = container.value.identity_ids
+      type         = "UserAssigned" #coalesce(container.value.identity_ids, "UserAssigned")
     }
   }
   tags = merge(var.extra_tags, local.shared_tags)
